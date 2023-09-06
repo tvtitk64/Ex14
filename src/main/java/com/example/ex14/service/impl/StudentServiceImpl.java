@@ -2,6 +2,7 @@ package com.example.ex14.service.impl;
 
 import com.example.ex14.entity.GoodStudent;
 import com.example.ex14.entity.NormalStudent;
+import com.example.ex14.entity.ResponseObject;
 import com.example.ex14.entity.Student;
 import com.example.ex14.repository.StudentRepository;
 import com.example.ex14.service.StudentService;
@@ -18,9 +19,15 @@ public class StudentServiceImpl implements StudentService {
 
     // Thêm sinh viên vào cơ sở dữ liệu
     @Override
-    public void addStudent(Student student) {
-        studentRepository.addStudent(student);
-        studentRepository.save(student);
+    public ResponseObject addStudent(Student student) {
+        ResponseObject responseObject = new ResponseObject();
+//        studentRepository.addStudent(student);
+        try {
+            studentRepository.save(student);
+        } catch (Exception e) {
+            responseObject.setMessage("failed");
+        }
+        return responseObject;
     }
 
     // Lấy danh sách sinh viên từ cơ sở dữ liệu
@@ -59,15 +66,22 @@ public class StudentServiceImpl implements StudentService {
         return qualifiedCandidates;
     }
 
-    @Override
-    public List<Student> getAllStudentsSorted() {
-        List<Student> allStudents = studentRepository.findAll();
-        Collections.sort(allStudents);
-        return allStudents;
-    }
+//    @Override
+//    public List<Student> getAllStudentsSorted() {
+//        List<Student> allStudents = studentRepository.findAll();
+//        Collections.sort(allStudents);
+//        return allStudents;
+//    }
 
     @Override
-    public void deleteStudent(String id) {
-        studentRepository.deleteById(Integer.valueOf(id));
+    public ResponseObject deleteStudent(long id) {
+        ResponseObject responseObject = new ResponseObject();
+//        studentRepository.addStudent(student);
+        try {
+            studentRepository.deleteById((int) id);
+        } catch (Exception e) {
+            responseObject.setMessage("failed");
+        }
+        return responseObject;
     }
 }

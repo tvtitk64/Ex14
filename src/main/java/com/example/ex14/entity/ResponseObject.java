@@ -1,41 +1,15 @@
 package com.example.ex14.entity;
 
+import lombok.Data;
+
+@Data
 public class ResponseObject {
-    private String status;
-    private String message;
+    private String status = "ok";
+    private String message = "Successful";
     private Object data;
 
     public ResponseObject() {
-
-    }
-
-    public ResponseObject(String status, String message, Object data) {
-        this.status = status;
-        this.message = message;
-        this.data = data;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
+        status = "ok";
+        message = "Successful";
     }
 }

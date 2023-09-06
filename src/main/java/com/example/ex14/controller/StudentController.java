@@ -1,6 +1,8 @@
 package com.example.ex14.controller;
 
+import com.example.ex14.entity.ResponseObject;
 import com.example.ex14.entity.Student;
+import com.example.ex14.service.StudentService;
 import com.example.ex14.service.impl.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,13 +13,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/students")
 public class StudentController {
-    @Autowired
-    private StudentServiceImpl studentService;
+    private StudentService studentService;
+
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
     @PostMapping
-    public ResponseEntity<String> addStudent(@RequestBody Student student) {
-        studentService.addStudent(student);
-        return ResponseEntity.ok("Student added successfully");
+    public ResponseObject addStudent(@RequestBody Student student) {
+        return studentService.addStudent(student);
     }
 
     @GetMapping("/qualified-candidates")
@@ -34,9 +38,8 @@ public class StudentController {
     }
 
     @DeleteMapping("/deleteStudent/{id}")
-    public ResponseEntity<String> deleteStudentById(@PathVariable String id) {
-        studentService.deleteStudent(id);
-        return ResponseEntity.ok("Student deleted successfully");
+    public ResponseObject deleteStudentById(@PathVariable long id) {
+        return studentService.deleteStudent(id);
     }
 
 
